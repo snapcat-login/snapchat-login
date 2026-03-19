@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0e11; --surface: #16161a;
+      --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.18);
+      --text: #f0ede8; --muted: rgba(240,237,232,0.45);
+      --accent: #c9b89a; --accent-dim: rgba(201,184,154,0.12);
+      --danger: #e07070; --success: #6ec99a;
+      --input-bg: rgba(255,255,255,0.04);
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center;
+      padding: 2rem; overflow: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 30%, rgba(201,184,154,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(100,120,180,0.06) 0%, transparent 70%);
+    }
+    .card {
+      position: relative; width: 100%; max-width: 400px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem 2rem;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .logo { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 0.25rem; }
+    .subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; font-weight: 300; }
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--muted); margin-bottom: 0.4rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    input[type="email"], input[type="password"] {
+      width: 100%; background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.7rem 0.9rem; font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif; color: var(--text); outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    input:hover { border-color: var(--border-hover); }
+    input:focus { border-color: var(--accent); background: var(--accent-dim); }
+    input::placeholder { color: rgba(240,237,232,0.2); }
+    .row { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+    .forgot { font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+    .forgot:hover { color: var(--accent); }
+    .btn {
+      width: 100%; background: var(--accent); color: #111; border: none;
+      border-radius: 10px; padding: 0.8rem; font-size: 0.95rem; font-weight: 500;
+      font-family: 'DM Sans', sans-serif; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .message { margin-top: 1rem; padding: 0.65rem 0.9rem; border-radius: 8px; font-size: 0.85rem; display: none; }
+    .message.error   { background: rgba(224,112,112,0.12); color: var(--danger); border: 1px solid rgba(224,112,112,0.25); display: block; }
+    .message.success { background: rgba(110,201,154,0.12); color: var(--success); border: 1px solid rgba(110,201,154,0.25); display: block; }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(0,0,0,0.2); border-top-color: #111;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">Welcome back</div>
+    <div class="subtitle">Sign in to your account to continue</div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+
+    <div class="row">
+      <a href="#" class="forgot">Forgot password?</a>
+    </div>
+
+    <button class="btn" id="loginBtn" onclick="handleLogin()">Sign in</button>
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    // !! Replace this with your Render.com URL after you deploy the server !!
+    const SERVER_URL = 'https://YOUR-APP-NAME.onrender.com';
+
+    async function handleLogin() {
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn      = document.getElementById('loginBtn');
+      const msg      = document.getElementById('message');
+
+      msg.className = 'message';
+      msg.textContent = '';
+
+      if (!email || !password) {
+        msg.className = 'message error';
+        msg.textContent = 'Please enter your email and password.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Signing in…';
+
+      try {
+        const res  = await fetch(`${SERVER_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          msg.className = 'message success';
+          msg.textContent = 'Login successful!';
+          // TODO: add redirect here later
+          // window.location.href = '/dashboard.html';
+        } else {
+          msg.className = 'message error';
+          msg.textContent = data.error || 'Login failed. Please try again.';
+        }
+      } catch (err) {
+        msg.className = 'message error';
+        msg.textContent = 'Could not reach the server. Please try again.';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Sign in';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+  </script>
+</body>
+</html>
