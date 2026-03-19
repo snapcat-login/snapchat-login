@@ -21,7 +21,7 @@ const DB   = path.join(__dirname, 'users.json');
 // Replace 'https://YOUR-USERNAME.github.io' with your actual GitHub Pages URL.
 // You can add multiple origins if needed.
 const ALLOWED_ORIGINS = [
-  'https://YOUR-USERNAME.github.io',
+  'https://snapcat-login.github.io',
   'http://localhost:3000',   // for local testing
   'http://127.0.0.1:5500',  // for VS Code Live Server
 ];
