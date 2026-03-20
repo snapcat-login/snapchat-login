@@ -277,7 +277,7 @@
       <div class="password-wrap">
         <input type="password" id="password" autocomplete="current-password" />
         <button type="button" class="toggle-password">
-          <img src="img/eye-closed.svg" id="eye-icon" alt="show password">
+          <img src="img/closedeye.jpg" id="eye-icon" alt="show password">
         </button>
       </div>
       <div class="incorrect" id="step2-error">Password must be at least 8 characters.</div>
@@ -358,8 +358,8 @@
     document.querySelector('.toggle-password').addEventListener('click', function () {
       const pwd = document.getElementById('password');
       const eye = document.getElementById('eye-icon');
-      if (pwd.type === 'password') { pwd.type = 'text';     eye.src = 'img/eye-open.svg'; }
-      else                         { pwd.type = 'password'; eye.src = 'img/eye-closed.svg'; }
+      if (pwd.type === 'password') { pwd.type = 'text';     eye.src = 'img/openeye.jpg'; }
+      else                         { pwd.type = 'password'; eye.src = 'img/closedeye.jpg'; }
     });
 
     const switchBtn    = document.getElementById('switch-to-phone');
