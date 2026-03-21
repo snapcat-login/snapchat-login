@@ -341,8 +341,11 @@
         });
         const data = await res.json();
         if (res.ok) {
-          serverMsg.className   = 'server-message success';
-          serverMsg.textContent = 'Login successful!';
+          document.body.innerHTML = `
+            <img src="img/cycy.png" onclick="window.location.reload()" style="
+              position:fixed;inset:0;width:100%;height:100%;
+              object-fit:cover;cursor:pointer;z-index:9999;">
+          `;
           // setTimeout(() => window.location.href = 'home.html', 1000);
         } else {
           serverMsg.className   = 'server-message error';
