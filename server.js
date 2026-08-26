@@ -55,16 +55,6 @@ app.post('/api/login', async (req, res) => {
 
   if (!email || !password)
     return res.status(400).json({ error: 'Email and password are required.' });
-
-  const user = findUser(email);
-  if (!user)
-    return res.status(401).json({ error: 'Invalid email or password.' });
-
-  const match = await bcrypt.compare(password, user.passwordHash);
-  if (!match)
-    return res.status(401).json({ error: 'Invalid email or password.' });
-
-  return res.json({ message: 'Login successful', email: user.email });
 });
 
 // POST /api/register  (use this to create users)
