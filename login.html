@@ -242,22 +242,14 @@
         <a href="#">Forgot your password?</a>
       </p>
 
-      <p class="hint" style="margin-top:16px; text-align:left; color:#a0a0a0; font-family:Arial, Helvetica, sans-serif;">
-        First time using this email? Logging in creates a demo account with whatever you type.
-      </p>
-
       <button type="submit" class="login-button" id="login-btn">Log In</button>
 
     </form>
-
-    <p class="alternate-option" style="justify-content:center; margin-top:20px;">
-      No account? <a href="javascript:void(0);">&nbsp;Sign up</a>
-    </p>
   </div>
 
   <script>
-    // Same server serves both the page and the API, so this can stay empty.
-    const SERVER_URL = '';
+    // !! Replace with your Render.com server URL after deploying !!
+    const SERVER_URL = 'https://YOUR-APP-NAME.onrender.com';
 
     // ── Login: validates then sends to server ────────────────────────
     async function handleLogin(event) {
