@@ -3,177 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="shortcut icon" href="img/faviconV2.png">
-  <meta name="description" content="Check this out!">
-  <meta property="og:site_name" content="">
-  <title>Login</title>
+  <title>Log In • Fake Demo App</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      caret-color: transparent;
-      font-family: "Avenir Next", Arial, sans-serif;
-      background-color: #ffffff;
+      font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+      background-color: #f3f3f3;
       margin: 0; padding: 0;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      position: relative;
+      min-height: 100vh;
     }
-    .login-container {
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 40px 32px 32px;
+      width: 340px;
       text-align: center;
-      max-width: 400px;
-      width: 83%;
     }
+
+    /* ── Fake logo badge ── */
+    .fake-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .fake-logo-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: repeating-linear-gradient(
+        45deg,
+        #fff152,
+        #fff152 8px,
+        #111 8px,
+        #111 16px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      border: 2px solid #111;
+    }
+    .fake-logo-icon span {
+      background: #fff;
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #111;
+      transform: rotate(-8deg);
+    }
+    .fake-logo-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #b3860b;
+      background: #fff8e1;
+      border: 1px solid #f1d78c;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
     h1 {
-      font-size: 27px;
-      color: #000000;
-      margin-bottom: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: 500;
+      font-size: 22px;
+      font-weight: 600;
+      color: #111;
+      margin: 0 0 20px;
     }
+
+    .identity-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #e2e2e2;
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .identity-pill button {
+      background: none;
+      border: none;
+      color: #1a8fe3;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0;
+    }
+
     label {
       display: block;
       text-align: left;
-      font-size: 12px;
-      font-weight: bold;
-      color: #55ccffd0;
-      margin-top: 20px;
-      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
     }
+    .password-container { position: relative; }
     input[type="text"],
-    input[type="password"],
-    input[type="tel"] {
+    input[type="password"] {
       width: 100%;
-      padding: 11px;
-      margin-top: 5px;
+      padding: 12px 40px 12px 14px;
       border: 1px solid #dcdcdc;
       border-radius: 10px;
       font-size: 14px;
-      box-sizing: border-box;
-      caret-color: #00A6FF;
+      margin-bottom: 4px;
     }
     input:focus {
-      border-color: #54545436;
       outline: none;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 0 5px rgba(116,116,116,0.17);
+      border-color: #1a8fe3;
+      box-shadow: 0 0 0 3px rgba(26,143,227,0.12);
     }
-    .password-container {
-      position: relative;
-      width: 100%;
-    }
-    .password-container .toggle-password {
+    .toggle-password {
       position: absolute;
-      right: 5px;
-      top: 60%;
-      transform: translateY(-50%);
+      right: 10px;
+      top: 12px;
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 14px;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .save-info {
-      display: flex;
-      align-items: center;
-      margin-top: -10px;
-      font-size: 12px;
-      justify-content: left;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .save-info label {
-      color: #bcbcbc;
-      font-weight: lighter;
-    }
-    .alternate-option {
-      display: flex;
-      align-items: center;
-      font-size: 12.8px;
-      color: #55ccffd0;
-      margin-top: 15px;
-      justify-content: left;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: bolder;
-    }
-    .forgot-password {
-      font-size: 12px;
-      color: #55ccffd0;
-      margin-top: 16px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 600;
-    }
-    .alternate-option a,
-    .forgot-password a {
-      text-decoration: none;
-      color: #55ccffd0;
-    }
-    input[type="checkbox"] {
-      margin-right: 5px;
-      margin-top: 20px;
-    }
-    .login-button {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 20px;
-      width: 210px;
-      padding: 12px;
-      margin-top: 20px;
-      background-color: #a7abad;
-      border: none;
-      border-radius: 18px;
-      font-size: 14px;
-      font-weight: bold;
-      color: #ffffff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .login-button.enabled { background-color: #00A6FF; }
-    .login-button:hover   { background-color: #027bde; }
-    .back-button {
-      position: absolute;
-      top: 12px;
-      left: 10px;
-      background-color: transparent;
-      border: none;
-      font-size: 16px;
-      color: #55ccffd0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-    .back-button:hover { color: #027bde; }
-    .incorrect {
-      color: red;
-      display: none;
-      margin-top: -10px;
-      margin-left: 5px;
-      margin-bottom: 5px;
       font-size: 13px;
-      font-weight: 400;
-      text-align: left;
+      color: #888;
     }
-    .error-message {
-      display: none;
-      background-color: #f44336;
-      color: white;
-      padding: 15px;
-      margin: 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      text-align: center;
-      animation: fadeIn 0.5s ease-out, vibrate 0.2s ease-in-out 3;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    @keyframes vibrate {
-      0%   { transform: translateX(0); }
-      25%  { transform: translateX(-5px); }
-      50%  { transform: translateX(5px); }
-      75%  { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
+
     .server-message {
       display: none;
       padding: 10px;
@@ -194,81 +153,137 @@
       color: #007a33;
       border: 1px solid #b2dfcc;
     }
+
+    .forgot {
+      display: block;
+      font-size: 13px;
+      color: #1a8fe3;
+      text-decoration: none;
+      margin: 14px 0 20px;
+      font-weight: 600;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 13px;
+      background-color: #1a8fe3;
+      border: none;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .login-button:hover { background-color: #1478c2; }
+    .login-button:disabled { background-color: #a7abad; cursor: default; }
+
+    .hint {
+      font-size: 11px;
+      color: #999;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+
+    .signup-row {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    .signup-row a {
+      color: #1a8fe3;
+      font-weight: 600;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
-  <button class="back-button" onclick="window.location.href='index.html'">
-    <img src="img/left-arrow.png" height="15px" width="15px" alt="back">
-  </button>
+  <div class="card">
 
-  <div class="login-container">
-
-    <div id="error-message" class="error-message">
-      Something went wrong! Please re-login to your account.
+    <div class="fake-logo">
+      <div class="fake-logo-icon"><span>FAKE</span></div>
+      <div class="fake-logo-text">Not a real app — school demo</div>
     </div>
 
-    <h1>Log In</h1>
+    <h1>Enter Password</h1>
+
+    <div class="identity-pill">
+      <span id="identity-display">you@example.com</span>
+      <button type="button" id="not-you-btn">Not you?</button>
+    </div>
 
     <form onsubmit="return handleLogin(event)">
 
-      <label for="username">USERNAME OR EMAIL</label>
-      <input type="text" id="username" name="name" required>
+      <label for="username" style="display:none">USERNAME OR EMAIL</label>
+      <input type="text" id="username" name="name" required style="display:none">
 
-      <p class="alternate-option">
-        <a href="javascript:void(0);" id="switch-to-phone">Use phone number instead</a>
-      </p>
-
-      <label for="password">PASSWORD</label>
+      <label for="password">Password</label>
       <div class="password-container">
         <input type="password" id="password" name="message" required>
-        <button type="button" class="toggle-password">
-          <img src="img/eye-closed.svg" id="eye-icon" width="20" height="20" alt="eye icon">
-        </button>
-      </div>
-
-      <div class="incorrect">
-        <p>Incorrect password, please try again.</p>
+        <button type="button" class="toggle-password" id="toggle-password">Show</button>
       </div>
 
       <div id="server-message" class="server-message"></div>
 
-      <div class="save-info">
-        <input type="checkbox" id="save-login">
-        <label for="save-login">Save Login Info on your device</label>
-      </div>
-
-      <p class="forgot-password">
-        <a href="#">Forgot your password?</a>
-      </p>
+      <a href="javascript:void(0);" class="forgot">Forgot Password</a>
 
       <button type="submit" class="login-button" id="login-btn">Log In</button>
+
+      <p class="hint">First time using this email? Logging in creates a demo account with whatever you type. No real accounts exist here.</p>
 
     </form>
 
   </div>
 
+  <p class="signup-row">New here? <a href="javascript:void(0);">Sign Up</a></p>
+
   <script>
-    // Same server serves both the page and the API, so this can stay empty.
+    // Same server serves both the page and the API.
     const SERVER_URL = '';
 
-    // ── Login: validates then sends to server ────────────────────────
+    const usernameInput   = document.getElementById('username');
+    const identityDisplay = document.getElementById('identity-display');
+    const notYouBtn       = document.getElementById('not-you-btn');
+
+    // On first load, prompt for an identity via a simple inline flow.
+    window.addEventListener('DOMContentLoaded', () => {
+      const entered = promptForIdentity();
+      usernameInput.value = entered;
+      identityDisplay.textContent = entered || 'you@example.com';
+    });
+
+    function promptForIdentity() {
+      const val = window.prompt('Enter a username or email (can be totally made up):', '');
+      return (val || '').trim();
+    }
+
+    notYouBtn.addEventListener('click', () => {
+      const entered = promptForIdentity();
+      usernameInput.value = entered;
+      identityDisplay.textContent = entered || 'you@example.com';
+    });
+
     async function handleLogin(event) {
       event.preventDefault();
 
-      const usernameOrEmail = document.getElementById('username').value.trim();
-      const password        = document.getElementById('password').value;
-      const incorrectMsg    = document.querySelector('.incorrect');
-      const serverMsg       = document.getElementById('server-message');
-      const loginBtn        = document.getElementById('login-btn');
+      const usernameOrEmail = usernameInput.value.trim();
+      const password         = document.getElementById('password').value;
+      const serverMsg        = document.getElementById('server-message');
+      const loginBtn          = document.getElementById('login-btn');
 
-      incorrectMsg.style.display = 'none';
-      serverMsg.className  = 'server-message';
+      serverMsg.className   = 'server-message';
       serverMsg.textContent = '';
 
-      // Client-side length check (mirrors your original JS)
+      if (!usernameOrEmail) {
+        serverMsg.className   = 'server-message error';
+        serverMsg.textContent = 'Please enter a username or email first (click "Not you?" to set one).';
+        return false;
+      }
+
       if (password.length < 8) {
-        incorrectMsg.style.display = 'block';
+        serverMsg.className   = 'server-message error';
+        serverMsg.textContent = 'Password must be at least 8 characters.';
         return false;
       }
 
@@ -285,9 +300,9 @@
 
         if (res.ok) {
           serverMsg.className   = 'server-message success';
-          serverMsg.textContent = 'Login successful! Redirecting…';
-          // Uncomment and update when your redirect is ready:
-          // setTimeout(() => window.location.href = 'https://www.BLANK.com/', 1000);
+          serverMsg.textContent = data.isNewAccount
+            ? 'Demo account created and logged in!'
+            : 'Login successful!';
         } else {
           serverMsg.className   = 'server-message error';
           serverMsg.textContent = data.error || 'Login failed. Please try again.';
@@ -302,44 +317,16 @@
       return false;
     }
 
-    // ── Toggle password visibility ───────────────────────────────────
-    document.querySelector('.toggle-password').addEventListener('click', function () {
+    document.getElementById('toggle-password').addEventListener('click', function () {
       const passwordField = document.getElementById('password');
-      const eyeIcon       = document.getElementById('eye-icon');
       if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        eyeIcon.src = 'img/openeye.png';
+        this.textContent = 'Hide';
       } else {
         passwordField.type = 'password';
-        eyeIcon.src = 'img/closedeye.png';
+        this.textContent = 'Show';
       }
     });
-
-    // ── Switch username/email ↔ phone ────────────────────────────────
-    const switchToPhone = document.getElementById('switch-to-phone');
-    const usernameInput = document.getElementById('username');
-    const usernameLabel = document.querySelector('label[for="username"]');
-
-    switchToPhone.addEventListener('click', function () {
-      if (usernameLabel.textContent === 'USERNAME OR EMAIL') {
-        usernameLabel.textContent = 'PHONE NUMBER';
-        usernameInput.type        = 'tel';
-        switchToPhone.textContent = 'Use email instead';
-      } else {
-        usernameLabel.textContent = 'USERNAME OR EMAIL';
-        usernameInput.type        = 'text';
-        switchToPhone.textContent = 'Use phone number instead';
-      }
-    });
-
-    // ── Error banner: show on load, hide on click ────────────────────
-    window.onload = function () {
-      const errorMessage = document.getElementById('error-message');
-      errorMessage.style.display = 'block';
-      document.body.addEventListener('click', function () {
-        errorMessage.style.display = 'none';
-      });
-    };
   </script>
 
 </body>
