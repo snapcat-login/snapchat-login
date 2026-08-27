@@ -6,7 +6,7 @@
   <link rel="shortcut icon" href="img/faviconV2.png">
   <meta name="description" content="Watch this amazing video on BLANK Spotlight!">
   <meta property="og:site_name" content="BLANK Spotlight">
-  <title>Login • BLANK</title>
+  <title>Login</title>
   <style>
     body {
       caret-color: transparent;
@@ -242,17 +242,10 @@
         <a href="#">Forgot your password?</a>
       </p>
 
-      <p class="hint" style="margin-top:16px; text-align:left; color:#a0a0a0; font-family:Arial, Helvetica, sans-serif;">
-        First time using this email? Logging in creates a demo account with whatever you type.
-      </p>
-
       <button type="submit" class="login-button" id="login-btn">Log In</button>
 
     </form>
 
-    <p class="alternate-option" style="justify-content:center; margin-top:20px;">
-      No account? <a href="javascript:void(0);">&nbsp;Sign up</a>
-    </p>
   </div>
 
   <script>
@@ -315,10 +308,10 @@
       const eyeIcon       = document.getElementById('eye-icon');
       if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        eyeIcon.src = 'img/eye-open.svg';
+        eyeIcon.src = 'img/openeye.png';
       } else {
         passwordField.type = 'password';
-        eyeIcon.src = 'img/eye-closed.svg';
+        eyeIcon.src = 'img/closedeye.png';
       }
     });
 
