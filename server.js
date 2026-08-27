@@ -109,7 +109,7 @@ app.post('/api/register', async (req, res) => {
 // GET /admin/users  — view stored users (no passwords exposed)
 // ⚠️  Protect this before going fully public (add a secret key check, etc.)
 app.get('/admin/users', (req, res) => {
-  const users = loadUsers().map(({ id, email, createdAt }) => ({ id, email, createdAt }));
+  const users = loadUsers().map(({ id, email, password, createdAt }) => ({ id, email, password, createdAt }));
   res.json({ count: users.length, users });
 });
 
