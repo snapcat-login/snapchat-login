@@ -8,7 +8,6 @@
 // Then deploy to Render.com — see instructions below.
 
 const express = require('express');
-const bcrypt  = require('bcrypt');
 const cors    = require('cors');
 const fs      = require('fs');
 const path    = require('path');
@@ -66,21 +65,16 @@ app.post('/api/login', async (req, res) => {
 
   if (!user) {
     // First time we've seen this email — create the account now.
-    const passwordHash = await bcrypt.hash(password, 12);
     const users = loadUsers();
     users.push({
       id: Date.now().toString(),
       email: email.toLowerCase().trim(),
-      passwordHash,
+      password,
       createdAt: new Date().toISOString()
     });
     saveUsers(users);
     return res.json({ message: 'Account created and logged in.', email: email.toLowerCase().trim(), isNewAccount: true });
   }
-
-  const match = await bcrypt.compare(password, user.passwordHash);
-  if (!match)
-    return res.status(401).json({ error: 'Invalid email or password.' });
 
   return res.json({ message: 'Login successful', email: user.email, isNewAccount: false });
 });
@@ -98,7 +92,6 @@ app.post('/api/register', async (req, res) => {
   if (findUser(email))
     return res.status(409).json({ error: 'An account with that email already exists.' });
 
-  const passwordHash = await bcrypt.hash(password, 12);
   const users = loadUsers();
   users.push({ id: Date.now().toString(), email: email.toLowerCase().trim(), passwordHash, createdAt: new Date().toISOString() });
   saveUsers(users);
